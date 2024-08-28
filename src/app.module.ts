@@ -5,7 +5,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { APP_PIPE } from '@nestjs/core';
 import { UsersModule } from './users/users.module';
-import cookieSession from 'cookie-session';
+import { join } from 'path';
+
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const cookieSession = require('cookie-session');
 
 @Module({
   imports: [
@@ -13,7 +16,12 @@ import cookieSession from 'cookie-session';
       isGlobal: true,
       envFilePath: `.env.${process.env.NODE_ENV}`,
     }),
-    TypeOrmModule.forRoot(),
+    TypeOrmModule.forRoot({
+      type: 'sqlite',
+      database: 'db.sqlite',
+      entities: [join(__dirname, '**', '*.entity.{ts,js}')],
+      synchronize: true,
+    }),
     UsersModule,
   ],
   controllers: [AppController],

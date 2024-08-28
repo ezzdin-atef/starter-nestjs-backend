@@ -1,0 +1,15 @@
+## GET ALL USERS
+GET http://localhost:3000/users
+
+###
+
+## SIGN UP
+POST http://localhost:3000/users/signup
+Content-Type: application/json
+
+{
+    "email": "ezzdin1125@gmail.com",
+    "password": "123456",
+    "name": "Ezzdin Atef"
+}
+
